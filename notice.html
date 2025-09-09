@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <title>Home | New Body Fitness</title>
+  <title>Notice Board | New Body Fitness</title>
 </head>
 <body>
   <!-- Navigation -->
@@ -19,40 +19,26 @@
       <li class="link"><a href="service.html">Service</a></li>
       <li class="link"><a href="about.html">About</a></li>
       <li class="link"><a href="diet.html">Diet Routine</a></li>
+      <li class="link"><a href="notice.html" class="active">Notices</a></li>
     </ul>
-    <!-- ✅ Join Now button redirects to auth.html -->
     <button class="btn" onclick="window.location.href='auth.html'">Join Now</button>
   </nav>
 
-  <!-- Page content -->
-  <header class="section__container header__container">
-    <div class="header__content">
-      <span class="bg__blur"></span>
-      <span class="bg__blur header__blur"></span>
-      <h4>BEST FITNESS IN THE CITY</h4>
-      <h1><span>NEW</span> BODY FITNESS</h1>
-      <p>Unleash your potential and embark on a journey towards a stronger, fitter, and more confident you. Join Us for 'Make Your Body Shape' now and witness the incredible transformation your body is capable of!</p>
-  
-      <button class="btn" onclick="window.location.href='program.html'">Get Started</button>
-    </div>
-    <div class="header__image">
-      <img src="assets/header.png" alt="header" />
-    </div>
-  </header>
+  <!-- Notice Board Section -->
+  <section class="section__container notice__container">
+    <h2 class="section__header">📢 Notice Board</h2>
+    <p class="section__subheader">Stay updated with the latest announcements, events, and schedules.</p>
 
-  <!-- You can add more homepage sections here following your original code -->
+    <div class="notice__list" id="publicNoticeList"></div>
+  </section>
 
+  <!-- Footer -->
   <footer class="section__container footer__container">
     <span class="bg__blur"></span>
     <span class="bg__blur footer__blur"></span>
     <div class="footer__col">
       <div class="footer__logo"><img src="assets/logo.png" alt="logo" /></div>
       <p>Take the first step towards a healthier, stronger you with our unbeatable pricing plans. Let's sweat, achieve, and conquer together!</p>
-      <div class="footer__socials">
-        <!-- <a href="#"><i class="ri-facebook-fill"></i></a>
-        <a href="#"><i class="ri-instagram-line"></i></a>
-        <a href="#"><i class="ri-twitter-fill"></i></a> -->
-      </div>
     </div>
     <div class="footer__col">
       <h4>Address</h4>
@@ -62,20 +48,53 @@
     <div class="footer__col">
       <h4>Strength Equipment</h4>
       <a href="#">💡 Smith Machine </a>
-      <a href="#">💡Leg Press Machine</a>
-      <a href="#">💡Leg Extension/Curl Machines</a>
-      <a href="#">💡Chest Press Machine</a>
+      <a href="#">💡 Leg Press Machine</a>
+      <a href="#">💡 Leg Extension/Curl Machines</a>
+      <a href="#">💡 Chest Press Machine</a>
     </div>
     <div class="footer__col">
-      <h4>Cardio Equipment:</h4>
-       <a href="#">💡Treadmills</a>
-       <a href="#">💡Stationary Bikes</a>
-       <a href="#">💡Ellipticals</a>
+      <h4>Cardio Equipment</h4>
+       <a href="#">💡 Treadmills</a>
+       <a href="#">💡 Stationary Bikes</a>
+       <a href="#">💡 Ellipticals</a>
     </div>
   </footer>
 
   <div class="footer__bar">
     Copyright © 2025 Admin Harsh. All rights reserved.
   </div>
+
+  <!-- Script to Load Notices -->
+  <!-- <script>
+    const role = localStorage.getItem("role");
+
+    // 🚫 If not logged in → redirect to login
+    if (!role) {
+      alert("Please login first!");
+      window.location.href = "auth.html";
+    }
+
+    const publicNoticeList = document.getElementById("publicNoticeList");
+    let notices = JSON.parse(localStorage.getItem("notices")) || [];
+
+    function renderPublicNotices() {
+      publicNoticeList.innerHTML = "";
+      if (notices.length === 0) {
+        publicNoticeList.innerHTML = "<p>No notices available.</p>";
+      } else {
+        notices.forEach(notice => {
+          const div = document.createElement("div");
+          div.className = "notice__item";
+          div.innerHTML = `
+            <h3>${notice.title}</h3>
+            <p>${notice.desc}</p>
+          `;
+          publicNoticeList.appendChild(div);
+        });
+      }
+    }
+
+    renderPublicNotices();
+  </script> -->
 </body>
 </html>

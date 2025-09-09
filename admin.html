@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | New Body Fitness</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav__logo">
+      <a href="index.html"><img src="assets/logo.png" alt="logo"></a>
+    </div>
+    <ul class="nav__links">
+      <li class="link"><a href="index.html">Home</a></li>
+      <li class="link"><a href="notice.html">View Notices</a></li>
+    </ul>
+    <button class="btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <!-- Admin Notice Management -->
+  <section class="section__container">
+    <h2 class="section__header">📢 Admin Notice Panel</h2>
+    <p class="section__subheader">Create, edit, and manage all announcements.</p>
+
+    <!-- Form to Add Notice -->
+    <form id="noticeForm" class="notice__form">
+      <input type="text" id="noticeTitle" placeholder="Enter Notice Title" required>
+      <textarea id="noticeDesc" placeholder="Enter Notice Description" required></textarea>
+      <button type="submit" class="btn">Add Notice</button>
+    </form>
+
+    <!-- Existing Notices -->
+    <div id="adminNoticeList" class="notice__list"></div>
+  </section>
+
+  <script>
+    // ✅ Check if Admin is logged in
+    const role = localStorage.getItem("role");
+    if (role !== "admin") {
+      alert("Access denied! Admins only.");
+      window.location.href = "auth.html";
+    }
+
+    let notices = JSON.parse(localStorage.getItem("notices")) || [];
+    const adminNoticeList = document.getElementById("adminNoticeList");
+    const noticeForm = document.getElementById("noticeForm");
+
+    // Render all notices in admin panel
+    function renderAdminNotices() {
+      adminNoticeList.innerHTML = "";
+      if (notices.length === 0) {
+        adminNoticeList.innerHTML = "<p>No notices yet.</p>";
+      } else {
+        notices.forEach((notice, index) => {
+          const div = document.createElement("div");
+          div.className = "notice__item";
+          div.innerHTML = `
+            <h3>${notice.title}</h3>
+            <p>${notice.desc}</p>
+            <button onclick="deleteNotice(${index})" class="btn btn-danger">Delete</button>
+          `;
+          adminNoticeList.appendChild(div);
+        });
+      }
+    }
+
+    // Add new notice
+    noticeForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const title = document.getElementById("noticeTitle").value.trim();
+      const desc = document.getElementById("noticeDesc").value.trim();
+
+      if (title && desc) {
+        notices.push({ title, desc });
+        localStorage.setItem("notices", JSON.stringify(notices));
+        renderAdminNotices();
+        noticeForm.reset();
+      }
+    });
+
+    // Delete notice
+    function deleteNotice(index) {
+      notices.splice(index, 1);
+      localStorage.setItem("notices", JSON.stringify(notices));
+      renderAdminNotices();
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("role");
+      window.location.href = "auth.html";
+    }
+
+    renderAdminNotices();
+  </script>
+</body>
+</html>

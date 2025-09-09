@@ -598,3 +598,177 @@ nav {
   color: #333;
   margin-bottom: 0.5rem;
 }
+/* ----------------------------------------- */
+/*      Login/Register (Auth) Page Styles    */
+/* ----------------------------------------- */
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* 👈 keeps it higher instead of dead center */
+  padding: 3rem 1rem;        /* reduced top padding */
+  min-height: 100vh;
+  background: var(--primary-color-light);
+  color: var(--white);
+}
+
+.container {
+  width: 520px;              /* 👈 Mid-size width */
+  max-width: 90%;            /* Responsive for small screens */
+  background: var(--primary-color);
+  padding: 40px 35px;        /* a bit more breathing room */
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+  margin-top: 40px;          /* 👈 adds gap from top */
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.tab {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+  color: var(--text-light);
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s;
+}
+
+.tab.active {
+  border-bottom: 2px solid var(--secondary-color);
+  color: var(--secondary-color);
+}
+
+form {
+  display: none;
+  flex-direction: column;
+}
+
+form.active {
+  display: flex;
+}
+
+label {
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: var(--text-light);
+}
+
+input {
+  padding: 12px;
+  border: 1px solid var(--primary-color-extra-light);
+  border-radius: 8px;
+  font-size: 15px;
+  background: var(--primary-color-light);
+  color: var(--white);
+  outline: none;
+}
+
+input:focus {
+  border-color: var(--secondary-color);
+}
+
+button {
+  margin-top: 20px;
+  padding: 12px;
+  background: var(--secondary-color);
+  border: none;
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: var(--secondary-color-dark);
+}
+
+.small-text {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.small-text a {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+/* ----------------------------------------- */
+/*      Admin Page     */
+/* ----------------------------------------- */
+
+.admin-container {
+  max-width: 800px;
+  margin: 5rem auto;
+  background: var(--primary-color);
+  padding: 2rem;
+  border-radius: 1rem;
+  color: white;
+}
+
+.admin-container h2 {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.notice-form input,
+.notice-form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  border: none;
+}
+
+.notice-form button {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.8rem;
+  background: #ff6b6b;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.notice-list {
+  margin-top: 2rem;
+}
+
+.notice-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.notice-item h4 {
+  margin: 0;
+}
+
+.notice-item p {
+  margin: 0.5rem 0 0;
+}
+
+.notice-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.notice-actions button {
+  background: transparent;
+  border: none;
+  color: white;
+  margin-left: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+}
