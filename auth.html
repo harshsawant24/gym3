@@ -9,7 +9,7 @@
   <!-- Navigation -->
   <nav>
     <div class="nav__logo">
-      <a href="index.html"><img src="assets/logo.png" alt="logo" /></a>
+      <a href="index.html"><img src="logo.png" alt="logo" /></a>
     </div>
     <ul class="nav__links">
       <li class="link"><a href="index.html">Home</a></li>
@@ -22,7 +22,6 @@
     <button class="btn" onclick="window.location.href='auth.html'">Join Now</button>
   </nav>
 
-  <!-- Centered Auth Page -->
   <section class="auth-page">
     <div class="container">
       <!-- Tabs -->
@@ -36,10 +35,8 @@
       <form id="login-form" class="active">
         <label for="login-email">Email</label>
         <input type="email" id="login-email" placeholder="Enter your email" required>
-
         <label for="login-password">Password</label>
         <input type="password" id="login-password" placeholder="Enter your password" required>
-
         <button type="submit">Login</button>
         <div class="small-text">Don't have an account? <a href="#" id="switch-to-register">Register</a></div>
       </form>
@@ -48,16 +45,12 @@
       <form id="register-form">
         <label for="reg-name">Full Name</label>
         <input type="text" id="reg-name" placeholder="Enter your name" required>
-
         <label for="reg-email">Email</label>
         <input type="email" id="reg-email" placeholder="Enter your email" required>
-
         <label for="reg-password">Password</label>
         <input type="password" id="reg-password" placeholder="Create a password" required>
-
         <label for="reg-confirm">Confirm Password</label>
         <input type="password" id="reg-confirm" placeholder="Confirm password" required>
-
         <button type="submit">Register</button>
         <div class="small-text">Already have an account? <a href="#" id="switch-to-login">Login</a></div>
       </form>
@@ -66,47 +59,14 @@
       <form id="admin-form">
         <label for="admin-username">Admin Username</label>
         <input type="text" id="admin-username" placeholder="Enter admin username" required>
-
         <label for="admin-password">Password</label>
         <input type="password" id="admin-password" placeholder="Enter admin password" required>
-
         <button type="submit">Login as Admin</button>
       </form>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="section__container footer__container">
-    <span class="bg__blur"></span>
-    <span class="bg__blur footer__blur"></span>
-    <div class="footer__col">
-      <div class="footer__logo"><img src="assets/logo.png" alt="logo" /></div>
-      <p>Take the first step towards a healthier, stronger you with our unbeatable plans. Let's sweat, achieve, and conquer together!</p>
-    </div>
-    <div class="footer__col">
-      <h4>Address</h4>
-      <a href="#">Shivneri Compound, Ratan Varte Chawl, Samarth Nagar</a>
-      <a href="#">Bhandup(W), Mumbai 400078</a>
-    </div>
-    <div class="footer__col">
-      <h4>Strength Equipment</h4>
-      <a href="#">💡 Smith Machine</a>
-      <a href="#">💡 Leg Press Machine</a>
-      <a href="#">💡 Chest Press Machine</a>
-    </div>
-    <div class="footer__col">
-      <h4>Cardio Equipment</h4>
-      <a href="#">💡 Treadmills</a>
-      <a href="#">💡 Stationary Bikes</a>
-      <a href="#">💡 Ellipticals</a>
-    </div>
-  </footer>
-  <div class="footer__bar">
-    Copyright © 2025 Admin Harsh. All rights reserved.
-  </div>
-
-  <!-- Script -->
-  <!-- <script>
+  <script>
     const loginTab = document.getElementById("login-tab");
     const registerTab = document.getElementById("register-tab");
     const adminTab = document.getElementById("admin-tab");
@@ -118,7 +78,6 @@
     const switchToRegister = document.getElementById("switch-to-register");
     const switchToLogin = document.getElementById("switch-to-login");
 
-    // Tab switching
     function switchTab(activeTab, activeForm) {
       [loginTab, registerTab, adminTab].forEach(tab => tab.classList.remove("active"));
       [loginForm, registerForm, adminForm].forEach(form => form.classList.remove("active"));
@@ -130,72 +89,65 @@
     registerTab.onclick = () => switchTab(registerTab, registerForm);
     adminTab.onclick = () => switchTab(adminTab, adminForm);
 
-    switchToRegister.onclick = (e) => {
-      e.preventDefault();
-      registerTab.click();
-    };
+    switchToRegister.onclick = e => { e.preventDefault(); registerTab.click(); };
+    switchToLogin.onclick = e => { e.preventDefault(); loginTab.click(); };
 
-    switchToLogin.onclick = (e) => {
+    // Register user
+    registerForm.addEventListener("submit", async e => {
       e.preventDefault();
-      loginTab.click();
-    };
+      const name = document.getElementById("reg-name").value.trim();
+      const email = document.getElementById("reg-email").value.trim();
+      const password = document.getElementById("reg-password").value.trim();
+      const confirm = document.getElementById("reg-confirm").value.trim();
 
-    // ✅ Handle normal user login
-    loginForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("Login successful!");
-      localStorage.setItem("isAdmin", "false"); // regular user
-      window.location.href = "notice.html"; 
+      if (password !== confirm) return alert("Passwords do not match!");
+
+      try {
+        const res = await fetch("/api/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, password }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert(data.message);
+          loginTab.click();
+        } else alert(data.error || "Registration failed");
+      } catch (err) { alert("Server error during registration"); }
     });
 
-    // ✅ Handle register
-    registerForm.addEventListener("submit", function (e) {
+    // Login user
+    loginForm.addEventListener("submit", async e => {
       e.preventDefault();
-      alert("Registration successful! Please login.");
-      loginTab.click(); 
+      const email = document.getElementById("login-email").value.trim();
+      const password = document.getElementById("login-password").value.trim();
+
+      try {
+        const res = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+        const data = await res.json();
+        if (res.ok) {
+          alert("Login successful!");
+          localStorage.setItem("role", "user");
+          window.location.href = "notice.html";
+        } else alert(data.error || "Login failed");
+      } catch (err) { alert("Server error during login"); }
     });
 
-    // ✅ Handle admin login
-    adminForm.addEventListener("submit", function (e) {
+    // Admin login
+    adminForm.addEventListener("submit", e => {
       e.preventDefault();
       const username = document.getElementById("admin-username").value;
       const password = document.getElementById("admin-password").value;
-
       if (username === "admin" && password === "admin123") {
         alert("Admin login successful!");
-        localStorage.setItem("isAdmin", "true"); // mark as admin
+        localStorage.setItem("role", "admin");
         window.location.href = "admin.html";
-      } else {
-        alert("Invalid admin credentials!");
-      }
+      } else alert("Invalid admin credentials!");
     });
-    
-
-
-
-    // ✅ Handle login submit → redirect to notice.html
-loginForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  alert("Login successful!");
-  localStorage.setItem("role", "user"); // Save role as user
-  window.location.href = "notice.html";
-});
-
-// ✅ Handle admin login submit → redirect to admin.html
-adminForm.addEventListener("submit", function (e) {
-  e.preventDefault();
-  const username = document.getElementById("admin-username").value;
-  const password = document.getElementById("admin-password").value;
-
-  if (username === "admin" && password === "admin123") {
-    alert("Admin login successful!");
-    localStorage.setItem("role", "admin"); // Save role as admin
-    window.location.href = "admin.html";
-  } else {
-    alert("Invalid admin credentials!");
-  }
-});
-
-  </script> -->
+  </script>
 </body>
 </html>

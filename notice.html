@@ -6,12 +6,30 @@
   <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <title>Notice Board | New Body Fitness</title>
+  <style>
+    .notice__item {
+      background: #222;
+      color: white;
+      padding: 15px;
+      margin-bottom: 12px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    }
+    .notice__item h3 {
+      margin-bottom: 8px;
+      color: #fff;
+    }
+    .notice__item p {
+      margin: 0;
+      color: #ddd;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation -->
   <nav>
     <div class="nav__logo">
-      <a href="index.html"><img src="assets/logo.png" alt="logo" /></a>
+      <a href="index.html"><img src="logo.png" alt="logo" /></a>
     </div>
     <ul class="nav__links">
       <li class="link"><a href="index.html">Home</a></li>
@@ -19,6 +37,7 @@
       <li class="link"><a href="service.html">Service</a></li>
       <li class="link"><a href="about.html">About</a></li>
       <li class="link"><a href="diet.html">Diet Routine</a></li>
+      <li class="link"><a href="packages.html">Packages</a></li>
       <li class="link"><a href="notice.html" class="active">Notices</a></li>
     </ul>
     <button class="btn" onclick="window.location.href='auth.html'">Join Now</button>
@@ -37,7 +56,7 @@
     <span class="bg__blur"></span>
     <span class="bg__blur footer__blur"></span>
     <div class="footer__col">
-      <div class="footer__logo"><img src="assets/logo.png" alt="logo" /></div>
+      <div class="footer__logo"><img src="logo.png" alt="logo" /></div>
       <p>Take the first step towards a healthier, stronger you with our unbeatable pricing plans. Let's sweat, achieve, and conquer together!</p>
     </div>
     <div class="footer__col">
@@ -64,8 +83,7 @@
     Copyright © 2025 Admin Harsh. All rights reserved.
   </div>
 
-  <!-- Script to Load Notices -->
-  <!-- <script>
+  <script>
     const role = localStorage.getItem("role");
 
     // 🚫 If not logged in → redirect to login
@@ -75,7 +93,13 @@
     }
 
     const publicNoticeList = document.getElementById("publicNoticeList");
-    let notices = JSON.parse(localStorage.getItem("notices")) || [];
+
+    // Default notices
+    let notices = [
+      { title: "🏆 Bodybuilding Competition", desc: "Annual Bodybuilding Competition will be held on 20th Sept 2025. Register at the front desk!" },
+      { title: "📅 Yoga Workshop", desc: "Special Yoga Workshop on 15th Sept. Open for all members." },
+      { title: "🥊 Boxing Training", desc: "New boxing sessions starting from October. Limited slots available." }
+    ];
 
     function renderPublicNotices() {
       publicNoticeList.innerHTML = "";
@@ -95,6 +119,6 @@
     }
 
     renderPublicNotices();
-  </script> -->
+  </script> 
 </body>
 </html>

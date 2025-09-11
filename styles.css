@@ -772,3 +772,46 @@ button:hover {
   cursor: pointer;
   font-size: 1rem;
 }
+/* ----------------------------------------- */
+/*          Weight Loss Table Styles         */
+/* ----------------------------------------- */
+
+.table__container {
+  max-width: 700px;
+  margin: 2rem auto;
+  overflow-x: auto;
+}
+
+.weightloss__table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--primary-color-light);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.weightloss__table thead {
+  background-color: var(--secondary-color);
+  color: var(--white);
+  font-weight: 600;
+}
+
+.weightloss__table th,
+.weightloss__table td {
+  padding: 15px;
+  text-align: center;
+}
+
+.weightloss__table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.weightloss__table tbody tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* .weightloss__table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+} */
